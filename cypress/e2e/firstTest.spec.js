@@ -4,8 +4,10 @@ describe('test backend', () => {
 
   })
 
-  it.only('',()=>{
-    console.log("testing")
+  it.only('verify correct request and response',()=>{
+    // first post an article then intercept the post requst
+    cy.contains('a', 'New Article').click()
+    cy.get('[formcontrolname="title"]').type('this is a title')
   })
 
 })
