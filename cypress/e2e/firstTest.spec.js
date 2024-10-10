@@ -1,9 +1,11 @@
-describe('template spec', () => {
-  it('passes', () => {
-    cy.visit('https://example.cypress.io')
+describe('test backend', () => {
+  beforeEach('login', ()=>{
+    cy.loginToApplication()
+
   })
 
-  it.only('Login to application ', ()=>{
-    cy.loginToApplication()
+  it.only('',()=>{
+    console.log("testing")
   })
+
 })

@@ -26,7 +26,9 @@
 Cypress.Commands.add('loginToApplication', ()=>{
     cy.openHomePage()
     cy.get('nav .nav-link').contains('Sign in').click()
-    cy.get('[formcontrolname="email"]').type('mnaser')
+    cy.get('[formcontrolname="email"]').type('mnaser11218@gmail.com')
+    cy.get('[formcontrolname="password"]').type('asd123')
+    cy.get('form').submit()
 })
 
 Cypress.Commands.add('openHomePage', ()=>{
