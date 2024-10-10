@@ -17,8 +17,9 @@ describe('test backend', () => {
     cy.get('[placeholder="Enter tags"]').type('this is a tag')
     cy.get('button').contains('Publish Article').click()
     cy.wait('@postArticle')
-    cy.get('@postArticle').then(post=>{
-      console.log(post)
+    cy.get('@postArticle').then(xhr=>{
+      expect(xhr.response.statusCode).to.equal(201)
+      // expect(xhr.response)
     })
   })
 
