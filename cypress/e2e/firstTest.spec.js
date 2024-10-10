@@ -16,6 +16,7 @@ describe('test backend', () => {
     cy.get('[formcontrolname="body"]').type('this is a body')
     cy.get('[placeholder="Enter tags"]').type('this is a tag')
     cy.get('button').contains('Publish Article').click()
+    cy.wait('@postArticle')
     cy.get('@postArticle').then(post=>{
       console.log(post)
     })
