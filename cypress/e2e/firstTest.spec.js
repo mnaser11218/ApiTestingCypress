@@ -19,6 +19,8 @@ describe('test backend', () => {
     cy.wait('@postArticle')
     cy.get('@postArticle').then(xhr=>{
       expect(xhr.response.statusCode).to.equal(201)
+      console.log(xhr.request.body.article.body)
+      expect(xhr.request.body.article.body).to.equal('this is a body')
       // expect(xhr.response)
     })
   })
