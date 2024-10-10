@@ -25,7 +25,8 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 Cypress.Commands.add('loginToApplication', ()=>{
     cy.openHomePage()
-    
+    cy.get('nav .nav-link').contains('Sign in').click()
+    cy.get('[formcontrolname="email"]').type('mnaser')
 })
 
 Cypress.Commands.add('openHomePage', ()=>{
