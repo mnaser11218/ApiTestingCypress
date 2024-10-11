@@ -16,8 +16,8 @@ describe('test backend', () => {
     cy.get('[formcontrolname="body"]').type('this is a body')
     cy.get('[placeholder="Enter tags"]').type('this is a tag')
     cy.get('button').contains('Publish Article').click()
-    cy.wait('@postArticle')
-    cy.get('@postArticle').then(xhr=>{
+
+    cy.wait('@postArticle').then(xhr=>{
       expect(xhr.response.statusCode).to.equal(201)
       console.log(xhr)
       expect(xhr.request.body.article.body).to.equal('this is a body')
