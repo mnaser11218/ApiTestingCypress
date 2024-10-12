@@ -34,6 +34,7 @@ describe('test backend', () => {
   it.only('verify popular tags are displayed', ()=>{
     cy.log('we logged in')
     cy.get('[class="tag-list"]').should('contain', 'Cypress')
+    .and('contain', 'automation')
   })
 
 })
