@@ -1,10 +1,11 @@
 describe('test backend', () => {
   beforeEach('login', ()=>{
+    cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/tags', {fixture: 'tags.json'})
     cy.loginToApplication()
 
   })
 
-  it.only('verify correct request and response',()=>{
+  it('verify correct request and response',()=>{
     // first post an article then intercept the post requst
 
     cy.intercept('POST', 'https://conduit-api.bondaracademy.com/api/articles/').as('postArticle')
@@ -28,6 +29,10 @@ describe('test backend', () => {
 
       // expect(xhr.response)
     })
+  })
+
+  it.only('verify popular tags are displayed', ()=>{
+    cy.log('we logged in')
   })
 
 })
