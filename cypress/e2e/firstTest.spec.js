@@ -35,6 +35,7 @@ describe('test backend', () => {
     cy.log('we logged in')
     cy.get('[class="tag-list"]').should('contain', 'Cypress')
     .and('contain', 'automation')
+    .and('contain', 'testing')
   })
 
 })
