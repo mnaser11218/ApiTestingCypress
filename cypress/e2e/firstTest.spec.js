@@ -65,6 +65,33 @@ cy.get('app-article-preview button').then(likeCount=> {
   expect(likeCount[0]).to.contain(2)
   expect(likeCount[1]).to.contain(5)
 })
+
+// cy.get('app-article-preview button').then(likeCount=>{
+//   cy.wrap(likeCount[0]).click()
+//   cy.wrap(likeCount[1]).click()
+// })
+
+cy.fixture('articles.json').then(file=>{
+  const articleLink = file.articles[0].slug
+  console.log(articleLink)
+  file.articles[0].favoritesCount = 3;
+  file.articles[1].favoritesCount = 6;
+
+  cy.intercept('POST', 'https://conduit-api.bondaracademy.com/api/articles/'+articleLink+ '/favorite', file).as('art')
+ // cy.get('app-article-preview button').eq(0).click()
+  // cy.get('app-article-preview button').then(button=>{
+  //   cy.wrap(button[0]).should('contain', 3)
+  // })
+
 })
+
+
+cy.get('app-article-preview button').eq(0).click().should('contain', 3)
+cy.get('app-article-preview button').eq(1).click().should('contain', 6)
+
+
+
+})
+
 
 })
