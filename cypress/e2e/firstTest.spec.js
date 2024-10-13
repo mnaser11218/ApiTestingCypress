@@ -47,7 +47,7 @@ it.only('testing like article display', ()=>{
   cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles*', {fixture: 'articles.json'})
 
   cy.get('app-article-preview').then(article=>{
-    cy.wrap(article).first().find('[class="ion-heart"]')
+   cy.wrap(article).first().find('button').should('contain', 2)
   })
 
 })
