@@ -46,10 +46,21 @@ it.only('testing like article display', ()=>{
 
   cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles*', {fixture: 'articles.json'})
 
-  cy.get('app-article-preview').then(article=>{
-   cy.wrap(article).first().find('button').should('contain', 2)
-  cy.wrap(article[1]).find('button').should('contain', 5)
+  // one way of testing button
+  // cy.get('app-article-preview').then(article=>{
+  //  cy.wrap(article).first().find('button').should('contain', 2)
+  // cy.wrap(article[1]).find('button').should('contain', 5)
+  // })
+
+  // second way of testing 
+
+  cy.get('app-article-preview button').then(button=>{
+    cy.wrap(button[0]).should('contain', '2')
+    cy.wrap(button[1]).should('contain', '5')
+
+
   })
+  
 
 })
 
