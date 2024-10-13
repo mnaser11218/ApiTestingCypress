@@ -54,14 +54,17 @@ it.only('testing like article display', ()=>{
 
   // second way of testing 
 
-  cy.get('app-article-preview button').then(button=>{
-    cy.wrap(button[0]).should('contain', '2')
-    cy.wrap(button[1]).should('contain', '5')
-
-
-  })
+  // cy.get('app-article-preview button').then(button=>{
+  //   cy.wrap(button[0]).should('contain', '2')
+  //   cy.wrap(button[1]).should('contain', '5')
+  // })
   
+// third way to test like count
 
+cy.get('app-article-preview button').then(likeCount=> {
+  expect(likeCount[0]).to.contain(2)
+  expect(likeCount[1]).to.contain(5)
+})
 })
 
 })
