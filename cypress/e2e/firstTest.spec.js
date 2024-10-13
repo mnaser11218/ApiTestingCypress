@@ -1,5 +1,6 @@
 describe('test backend', () => {
   beforeEach('login', ()=>{
+    // the fixture method will replace the response obj with the obj in tags.json 
     cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/tags', {fixture: 'tags.json'})
     cy.loginToApplication()
 
@@ -30,12 +31,14 @@ describe('test backend', () => {
       // expect(xhr.response)
     })
   })
-
-  it.only('verify popular tags are displayed', ()=>{
+  // test the custom tags from tags.json are displayed
+  it('verify popular tags are displayed', ()=>{
     cy.log('we logged in')
     cy.get('[class="tag-list"]').should('contain', 'Cypress')
     .and('contain', 'automation')
     .and('contain', 'testing')
   })
+
+
 
 })
