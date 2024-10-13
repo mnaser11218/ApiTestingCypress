@@ -89,6 +89,7 @@ cy.fixture('articles.json').then(file=>{
 cy.get('app-article-preview button').eq(0).click().should('contain', 3)
 cy.get('app-article-preview button').eq(1).click().should('contain', 6)
 
+cy.get('app-article-preview button').eq(0).click().should('contain', 45)
 
 
 })
