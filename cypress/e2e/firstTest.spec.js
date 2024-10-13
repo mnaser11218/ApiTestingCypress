@@ -48,6 +48,7 @@ it.only('testing like article display', ()=>{
 
   cy.get('app-article-preview').then(article=>{
    cy.wrap(article).first().find('button').should('contain', 2)
+  cy.wrap(article[1]).find('button').should('contain', 5)
   })
 
 })
