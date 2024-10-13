@@ -1,0 +1,47 @@
+{
+    "articles": [
+        {
+            "slug": "Discover-Bondar-Academy:-Your-Gateway-to-Efficient-Learning-1",
+            "title": "Testing title 123",
+            "description": "Discover Bondar Academy's testing",
+            "tagList": [
+                "qa career",
+                "Bondar Academy",
+                "QA Skills",
+                "Value-Focused"
+            ],
+            "createdAt": "2024-01-27T21:52:32.682Z",
+            "updatedAt": "2024-01-27T21:52:32.682Z",
+            "favorited": false,
+            "favoritesCount": 2,
+            "author": {
+                "username": "Artem Bondar",
+                "bio": null,
+                "image": "https://storage.googleapis.com/bondar-academy-visuals/Android.png",
+                "following": false
+            }
+        },
+        {
+            "slug": "The-value-of-pre-recorded-video-classes.-The-most-efficient-approach-to-tranfer-the-knowledge-1",
+            "title": "he most efficient approach to tranfer the knowledge testing 123",
+            "description": "As educational practices evolve, video tutorials have emerged as the most efficient method for imparting theoretical knowledge. At Bondar Academy, we prioritize expertly structured and crafted video tutorials, ensuring you learn quickly and effectively and advance your skills.",
+            "body": "At Bondar Academy, we prioritize the value of your time and the efficiency of your education, distinguishing our approach from traditional colleges and live boot camps. Forget long, tedious live lectures on a fixed schedule. With us, you learn at your convenience and pace through optimized, structured video lectures. \n\nWe understand your goal is rapid knowledge acquisition. Our pre-recorded and well-organized lectures are designed precisely for this, ensuring no slowdowns from group dynamics or unrelated instructor anecdotes. \n\nDive straight into the subject matter, learn efficiently, and if questions arise, our immediate support on the Slack Workspace is there to streamline your learning process and swiftly remove any roadblocks.",
+            "tagList": [
+                "Bondar Academy",
+                "Video Lectures",
+                "Tutorials"
+            ],
+            "createdAt": "2024-01-27T21:50:38.825Z",
+            "updatedAt": "2024-01-27T21:50:38.825Z",
+            "favorited": false,
+            "favoritesCount": 5,
+            "author": {
+                "username": "Artem Bondar",
+                "bio": null,
+                "image": "https://storage.googleapis.com/bondar-academy-visuals/Android.png",
+                "following": false
+            }
+        }
+    ],
+    "articlesCount": 2
+}
