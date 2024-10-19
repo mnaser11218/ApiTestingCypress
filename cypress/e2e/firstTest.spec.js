@@ -10,10 +10,18 @@ describe('test backend', () => {
   it.only('verify correct request and response',()=>{
     // first post an article then intercept the post requst
 
-    cy.intercept('POST', '**/articles', (req)=>{
-        req.body.article.description = "This is a description 2"
-    }).as('postArticle')
+    // cy.intercept('POST', '**/articles', (req)=>{
+    //     req.body.article.description = "This is a description 2"
+    // }).as('postArticle')
 
+    // here we are intercepting the post request to check the request and the response of the request"
+
+    cy.intercept('POST', '**/articles', (req)=>{
+      req.reply(res=>{
+        console.log(res)
+        expect(res.body.article.description).to.equal("this is a description")
+      })
+  }).as('postArticle')
 
     cy.contains('a', 'New Article').click()
     cy.get('[formcontrolname="title"]').type('this is a title')
@@ -26,7 +34,7 @@ describe('test backend', () => {
       expect(xhr.response.statusCode).to.equal(201)
       console.log(xhr)
       expect(xhr.request.body.article.body).to.equal('this is a body')
-      expect(xhr.request.body.article.description).to.equal('This is a description 2')
+      expect(xhr.request.body.article.description).to.equal('this is a description')
       expect(xhr.request.body.article.tagList[0]).to.equal('this is a tag')
       expect(xhr.request.body.article.title).to.equal('this is a title')
 
