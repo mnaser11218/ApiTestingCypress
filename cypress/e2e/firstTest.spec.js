@@ -20,6 +20,7 @@ describe('test backend', () => {
       req.reply(res=>{
         console.log(res)
         expect(res.body.article.description).to.equal("this is a description")
+        res.body.article.description = "This is a description 2";
       })
   }).as('postArticle')
 
