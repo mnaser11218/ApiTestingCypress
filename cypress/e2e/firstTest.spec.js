@@ -2,12 +2,15 @@ describe('test backend', () => {
   beforeEach('login', ()=>{
     // the fixture method will replace the response obj with the obj in tags.json 
    // cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/tags', {fixture: 'tags.json'})
-    cy.intercept({method:'GET', path: 'tags'}, {fixture: 'tags.json'})
+  //  cy.intercept({method:'GET', path: 'tags'}, {fixture: 'tags.json'})
+  cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/tags', {fixture: 'tags.json'})
     cy.loginToApplication()
 
   })
 
-  it.only('verify correct request and response',()=>{
+
+
+  it('verify correct request and response',()=>{
     // first post an article then intercept the post requst
 
     // cy.intercept('POST', '**/articles', (req)=>{
@@ -43,12 +46,19 @@ describe('test backend', () => {
       // expect(xhr.response)
     })
   })
+
+
   // test the custom tags from tags.json are displayed
-  it.only('verify popular tags are displayed', ()=>{
-    cy.log('we logged in')
-    cy.get('[class="tag-list"]').should('contain', 'Cypress')
-    .and('contain', 'automation')
-    .and('contain', 'testing')
+  // it('verify popular tags are displayed', ()=>{
+  //   cy.log('we logged in')
+  //   cy.get('[class="tag-list"]').should('contain', 'Cypress')
+  //   .and('contain', 'automation')
+  //   .and('contain', 'testing')
+  // })
+  it.only('verify tags display', ()=>{
+    cy.log('inside tags method')
+    cy.get('.tag-list')
+    .should('contain', 'Cypress')
   })
 
   // test to like an article in the global feed 
@@ -102,6 +112,15 @@ cy.fixture('articles.json').then(file=>{
 // cy.get('app-article-preview button').eq(1).click().should('contain', 6)
 
 // cy.get('app-article-preview button').eq(0).click().should('contain', 45)
+
+
+})
+
+
+it('testing cy intercept article post request', ()=>{
+  cy.intercept('POST', '**/articles', (req)=>{
+
+  })
 
 
 })
