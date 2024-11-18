@@ -55,64 +55,85 @@ describe('test backend', () => {
   //   .and('contain', 'automation')
   //   .and('contain', 'testing')
   // })
-  it.only('verify tags display', ()=>{
-    cy.log('inside tags method')
-    cy.get('.tag-list')
-    .should('contain', 'Cypress')
-  })
+//   it.only('verify tags display', ()=>{
+//     cy.log('inside tags method')
+//     cy.get('.tag-list')
+//     .should('contain', 'Cypress')
+//     .and('contain', 'automation')
+//     .and('contain', 'testing')
+//   })
 
-  // test to like an article in the global feed 
-it('testing like article display', ()=>{
+//   // test to like an article in the global feed 
+// it('testing like article display', ()=>{
 
-  cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles/feed*', {"articles":[],"articlesCount":0} )
+//   cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles/feed*', {"articles":[],"articlesCount":0} )
 
-  cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles*', {fixture: 'articles.json'})
+//   cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles*', {fixture: 'articles.json'})
 
-  // one way of testing button
-  // cy.get('app-article-preview').then(article=>{
-  //  cy.wrap(article).first().find('button').should('contain', 2)
-  // cy.wrap(article[1]).find('button').should('contain', 5)
-  // })
+//   // one way of testing button
+//   // cy.get('app-article-preview').then(article=>{
+//   //  cy.wrap(article).first().find('button').should('contain', 2)
+//   // cy.wrap(article[1]).find('button').should('contain', 5)
+//   // })
 
-  // second way of testing 
+//   // second way of testing 
 
-  // cy.get('app-article-preview button').then(button=>{
-  //   cy.wrap(button[0]).should('contain', '2')
-  //   cy.wrap(button[1]).should('contain', '5')
-  // })
+//   // cy.get('app-article-preview button').then(button=>{
+//   //   cy.wrap(button[0]).should('contain', '2')
+//   //   cy.wrap(button[1]).should('contain', '5')
+//   // })
   
-// third way to test like count
+// // third way to test like count
 
-cy.get('app-article-preview button').then(likeCount=> {
-  expect(likeCount[0]).to.contain(2)
-  expect(likeCount[1]).to.contain(5)
-})
-
-// cy.get('app-article-preview button').then(likeCount=>{
-//   cy.wrap(likeCount[0]).click()
-//   cy.wrap(likeCount[1]).click()
+// cy.get('app-article-preview button').then(likeCount=> {
+//   expect(likeCount[0]).to.contain(3)
+//   expect(likeCount[1]).to.contain(5)
 // })
 
-cy.fixture('articles.json').then(file=>{
-  const articleLink = file.articles[0].slug
-  console.log(articleLink)
-  file.articles[0].favoritesCount = 3;
-  file.articles[1].favoritesCount = 6;
+// // cy.get('app-article-preview button').then(likeCount=>{
+// //   cy.wrap(likeCount[0]).click()
+// //   cy.wrap(likeCount[1]).click()
+// // })
 
-  cy.intercept('POST', 'https://conduit-api.bondaracademy.com/api/articles/'+articleLink+ '/favorite', file).as('art')
- // cy.get('app-article-preview button').eq(0).click()
-  // cy.get('app-article-preview button').then(button=>{
-  //   cy.wrap(button[0]).should('contain', 3)
-  // })
+// cy.fixture('articles.json').then(file=>{
+//   const articleLink = file.articles[0].slug
+//   console.log(articleLink)
+//   file.articles[0].favoritesCount = 3;
+//   file.articles[1].favoritesCount = 6;
 
-})
+//   cy.intercept('POST', 'https://conduit-api.bondaracademy.com/api/articles/'+articleLink+ '/favorite', file).as('art')
+//  // cy.get('app-article-preview button').eq(0).click()
+//   // cy.get('app-article-preview button').then(button=>{
+//   //   cy.wrap(button[0]).should('contain', 3)
+//   // })
+
+// })
 
 
-// cy.get('app-article-preview button').eq(0).click().should('contain', 3)
-// cy.get('app-article-preview button').eq(1).click().should('contain', 6)
+// // cy.get('app-article-preview button').eq(0).click().should('contain', 3)
+// // cy.get('app-article-preview button').eq(1).click().should('contain', 6)
 
-// cy.get('app-article-preview button').eq(0).click().should('contain', 45)
+// // cy.get('app-article-preview button').eq(0).click().should('contain', 45)
 
+
+// })
+
+
+it.only('testing like article functionality', ()=>{
+
+  // first intercept get request to articles with articles.json
+  cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles*', {fixture: 'articles.json'})
+
+  // test article 1 in article contains like number
+    cy.get('app-article-preview button').then(button=>{
+      cy.wrap(button[0]).should('contain',3 )
+    })
+  // use fixture method to update the articles file 
+      // store article link
+      // update favorites count by one
+      // intercept post request to article/link/favorite with updated file
+
+  // get button, click and it should contain updated number
 
 })
 
