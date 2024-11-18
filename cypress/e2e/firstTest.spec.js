@@ -132,6 +132,14 @@ it.only('testing like article functionality', ()=>{
       // store article link
       // update favorites count by one
       // intercept post request to article/link/favorite with updated file
+    cy.fixture('articles.json').then(file=>{
+      const articleLink = file.articles[0].slug
+      file.articles[0].favoritesCount = 4;
+      cy.intercept('POST', 'https://conduit-api.bondaracademy.com/api/articles/' + articleLink + '/favorite', file).as('art')
+    
+
+    })
+    cy.get('app-article-preview button').eq(0).click().should('contain', 4)
 
   // get button, click and it should contain updated number
 
