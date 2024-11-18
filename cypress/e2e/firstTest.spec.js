@@ -119,7 +119,7 @@ describe('test backend', () => {
 // })
 
 
-it.only('testing like article functionality', ()=>{
+it('testing like article functionality', ()=>{
 
   // first intercept get request to articles with articles.json
   cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles*', {fixture: 'articles.json'})
@@ -136,14 +136,37 @@ it.only('testing like article functionality', ()=>{
       const articleLink = file.articles[0].slug
       file.articles[0].favoritesCount = 4;
       cy.intercept('POST', 'https://conduit-api.bondaracademy.com/api/articles/' + articleLink + '/favorite', file).as('art')
-    
-
     })
-    cy.get('app-article-preview button').eq(0).click().should('contain', 4)
+      // get button, click and it should contain updated number
 
-  // get button, click and it should contain updated number
+    cy.get('app-article-preview button').eq(0).click().should('contain', 4)
+})
+
+// test liking the second article
+
+it.only('testing like second article functionality', ()=>{
+  //intercept a get request for the articles 
+  cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles*', {fixture: 'articles'})
+  // check the second article has the correct like amount
+  cy.get('app-article-preview button').eq(1).should('contain', 5)
+  // using the fixture method, update the articles file to increase the like amount
+  cy.fixture('articles.json').then(file=>{
+   const urlLink = file.articles[1].slug;
+   console.log("url link: " + urlLink)
+   file.articles[1].favoritesCount = 6;
+
+   cy.intercept('POST', 'https://conduit-api.bondaracademy.com/api/articles/' + urlLink + '/favorite')
+   cy.get('app-article-preview button').eq(1).click().should('contain', 6)
+
+
+  })
+      // store the url of the specific article
+      // intercept a post request to the endpoint url 
+      // click on button of second article 
+      // check if the second article like amount is updated. 
 
 })
+
 
 
 it('testing cy intercept article post request', ()=>{
