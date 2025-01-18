@@ -71,17 +71,17 @@ describe('test backend', () => {
   // })
 
 // //   // test to like an article in the global feed 
-// it('testing like article display', ()=>{
+ it.only('testing like article display', ()=>{
 
-//   cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles/feed*', {"articles":[],"articlesCount":0} )
+  cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles/feed*', {"articles":[],"articlesCount":0} )
 
-//   cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles*', {fixture: 'articles.json'})
+  cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles*', {fixture: 'articles.json'})
 
 //   // one way of testing button
-//   // cy.get('app-article-preview').then(article=>{
-//   //  cy.wrap(article).first().find('button').should('contain', 2)
-//   // cy.wrap(article[1]).find('button').should('contain', 5)
-//   // })
+  cy.get('app-article-preview').then(article=>{
+   cy.wrap(article).first().find('button').should('contain', 3)
+  cy.wrap(article[1]).find('button').should('contain', 5)
+  })
 
 //   // second way of testing 
 
@@ -123,7 +123,7 @@ describe('test backend', () => {
 // // cy.get('app-article-preview button').eq(0).click().should('contain', 45)
 
 
-// })
+ })
 
 
 // it('testing like article functionality', ()=>{
