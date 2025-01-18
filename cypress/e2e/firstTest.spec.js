@@ -86,9 +86,8 @@ describe('test backend', () => {
  cy.get('app-article-list button').then(buttonList=>{
 expect(buttonList[0]).to.contain('3')
 expect(buttonList[1]).to.contain('5')
-
  
- })
+ 
 //   // second way of testing 
 
 //   // cy.get('app-article-preview button').then(button=>{
@@ -108,19 +107,17 @@ expect(buttonList[1]).to.contain('5')
 // //   cy.wrap(likeCount[1]).click()
 // // })
 
-// cy.fixture('articles.json').then(file=>{
-//   const articleLink = file.articles[0].slug
-//   console.log(articleLink)
-//   file.articles[0].favoritesCount = 3;
-//   file.articles[1].favoritesCount = 6;
+cy.fixture('articles.json').then(file=>{
+  const articleLink = file.articles[1].slug
+  console.log(articleLink)
+  
+  file.articles[1].favoritesCount = 6;
 
-//   cy.intercept('POST', 'https://conduit-api.bondaracademy.com/api/articles/'+articleLink+ '/favorite', file).as('art')
-//  // cy.get('app-article-preview button').eq(0).click()
-//   // cy.get('app-article-preview button').then(button=>{
-//   //   cy.wrap(button[0]).should('contain', 3)
-//   // })
+  cy.intercept('POST', 'https://conduit-api.bondaracademy.com/api/articles/'+articleLink+ '/favorite', file).as('art')
+ 
+  })
+  cy.get('app-article-preview button').eq(1).click().should('contain', '6')
 
-// })
 
 
 // // cy.get('app-article-preview button').eq(0).click().should('contain', 3)
@@ -131,7 +128,8 @@ expect(buttonList[1]).to.contain('5')
 
  })
 
-
+ })
+})
 // it('testing like article functionality', ()=>{
 
 //   // first intercept get request to articles with articles.json
@@ -190,5 +188,3 @@ expect(buttonList[1]).to.contain('5')
 
 // })
 
-
-})
