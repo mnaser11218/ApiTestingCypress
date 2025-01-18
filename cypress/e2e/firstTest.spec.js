@@ -10,7 +10,7 @@ describe('test backend', () => {
 
 
 
-  it.only('verify correct request and response',()=>{
+  it('verify correct request and response',()=>{
     // first post an article then intercept the post requst
 
     // cy.intercept('POST', '**/articles', (req)=>{
@@ -110,6 +110,26 @@ cy.fixture('articles.json').then(file=>{
   cy.get('app-article-preview button').eq(1).click().should('contain', '6')
 
  })
+
+
+// api testing loggin in and storing token
+ it.only('delete a new article in a global feed', ()=>{
+  const userCredentials = {"user": 
+    {
+        "email": "mnaser11218@gmail.com",
+        "password": "asd123"
+        }
+    }
+
+  cy.request('POST', 'https://conduit-api.bondaracademy.com/api/users/login',userCredentials)
+  .its('body').then(body=>{
+    console.log(body.user.token)
+  })
+
+ })
+
+
+
 })
 // it('testing like article functionality', ()=>{
 
@@ -160,11 +180,6 @@ cy.fixture('articles.json').then(file=>{
 // })
 
 
-
-// it('testing cy intercept article post request', ()=>{
-//   cy.intercept('POST', '**/articles', (req)=>{
-
-//   })
 
 
 // })
