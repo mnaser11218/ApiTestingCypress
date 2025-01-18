@@ -10,7 +10,7 @@ describe('test backend', () => {
 
 
 
-  it('verify correct request and response',()=>{
+  it.only('verify correct request and response',()=>{
     // first post an article then intercept the post requst
 
     // cy.intercept('POST', '**/articles', (req)=>{
@@ -21,17 +21,20 @@ describe('test backend', () => {
     // you must intercept before performing the action, sequence is: first intercept, then action, then assertions. 
 
     cy.intercept('POST', '**/articles', (req)=>{
+      // req.body.article.description = "This is a description 2";
+
       req.reply(res=>{
         console.log(res)
+
+        expect(res.body.article.description).to.equal("This is a description")
         res.body.article.description = "This is a description 2";
 
-        expect(res.body.article.description).to.equal("This is a description 2")
       })
   }).as('postArticles')
 
     cy.contains('a', 'New Article').click()
     cy.get('[formcontrolname="title"]').type('this is a title')
-    cy.get('[formcontrolname="description"]').type('this is a description')
+    cy.get('[formcontrolname="description"]').type('This is a description')
     cy.get('[formcontrolname="body"]').type('this is a body')
     cy.get('[placeholder="Enter tags"]').type('this is a tag')
     cy.get('button').contains('Publish Article').click()
@@ -40,18 +43,13 @@ describe('test backend', () => {
       expect(xhr.response.statusCode).to.equal(201)
       console.log(xhr)
       expect(xhr.request.body.article.body).to.equal('this is a body')
-      expect(xhr.request.body.article.description).to.equal('this is a description')
+      expect(xhr.response.body.article.description).to.equal('This is a description 2')
       expect(xhr.request.body.article.tagList[0]).to.equal('this is a tag')
       expect(xhr.request.body.article.title).to.equal('this is a title')
 
 
       // expect(xhr.response)
     })
-  })
-
-
-  it('verify popular tags are displayed', ()=>{
-   
   })
 
 
@@ -62,16 +60,9 @@ describe('test backend', () => {
     .and('contain', 'automation')
     .and('contain', 'testing')
   })
-  // it.only('verify tags display', ()=>{
-  //   cy.log('inside tags method')
-  //   cy.get('.tag-list')
-  //   .should('contain', 'Cypress')
-  //   .and('contain', 'automation')
-  //   .and('contain', 'testing')
-  // })
 
-// //   // test to like an article in the global feed 
- it.only('testing like article display', ()=>{
+// test to like an article in the global feed 
+ it('testing like article display', ()=>{
 
   cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles/feed*', {"articles":[],"articlesCount":0} )
 
@@ -86,7 +77,7 @@ describe('test backend', () => {
  cy.get('app-article-list button').then(buttonList=>{
 expect(buttonList[0]).to.contain('3')
 expect(buttonList[1]).to.contain('5')
- 
+})
  
 //   // second way of testing 
 
@@ -117,16 +108,6 @@ cy.fixture('articles.json').then(file=>{
  
   })
   cy.get('app-article-preview button').eq(1).click().should('contain', '6')
-
-
-
-// // cy.get('app-article-preview button').eq(0).click().should('contain', 3)
-// // cy.get('app-article-preview button').eq(1).click().should('contain', 6)
-
-// // cy.get('app-article-preview button').eq(0).click().should('contain', 45)
-
-
- })
 
  })
 })
