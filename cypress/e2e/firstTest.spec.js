@@ -112,7 +112,7 @@ cy.fixture('articles.json').then(file=>{
  })
 
 
-// api testing loggin in and storing token
+// api testing loggin in and storing token, then making an article with an api request and deleting it
  it.only('delete a new article in a global feed', ()=>{
   const userCredentials = {"user": 
     {
@@ -120,13 +120,29 @@ cy.fixture('articles.json').then(file=>{
         "password": "asd123"
         }
     }
+    const articleBody = {article: {title: "from api", description: "kkk", body: "kk", tagList: ["kk"]}}
+
 
   cy.request('POST', 'https://conduit-api.bondaracademy.com/api/users/login',userCredentials)
   .its('body').then(body=>{
     console.log(body.user.token)
+    const token = body.user.token;
+ 
+
+  cy.request({
+    url:'https://conduit-api.bondaracademy.com/api/articles/',
+    headers:{
+      'Authorization': 'Token ' + token
+    },
+    method:'POST',
+    body: articleBody
+  }).then(resp=>{
+    expect(resp.status).to.equal(201)
   })
 
  })
+
+})
 
 
 
