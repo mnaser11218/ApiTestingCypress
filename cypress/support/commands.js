@@ -24,11 +24,28 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 Cypress.Commands.add('loginToApplication', ()=>{
-    cy.openHomePage()
-    cy.get('nav .nav-link').contains('Sign in').click()
-    cy.get('[formcontrolname="email"]').type('mnaser11218@gmail.com')
-    cy.get('[formcontrolname="password"]').type('asd123')
-    cy.get('form').submit()
+    // modify to make headless authentication request
+   
+    const userCredentials = {"user": 
+        {
+            "email": "mnaser11218@gmail.com",
+            "password": "asd123"
+            }
+        }
+        cy.request('POST', 'https://conduit-api.bondaracademy.com/api/users/login',userCredentials)
+  .its('body').then(body=>{
+    const token = body.user.token;
+    cy.wrap(token).as('token')
+
+
+    cy.visit('/', {
+        onBeforeLoad (win) {
+            win.localStorage.setItem('jwtToken', token)
+        }
+    })
+  })
+
+
 })
 
 Cypress.Commands.add('openHomePage', ()=>{
