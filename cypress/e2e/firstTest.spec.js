@@ -140,6 +140,22 @@ cy.fixture('articles.json').then(file=>{
     expect(resp.status).to.equal(201)
   })
 
+  cy.contains('Global Feed').click()
+  cy.get('app-article-preview').first().click()
+  cy.get('app-article-meta button').contains('Delete').click()
+
+
+  cy.request({
+    url:'https://conduit-api.bondaracademy.com/api/articles/',
+    headers:{
+      'Authorization': 'Token ' + token
+    },
+    method:'GET'
+  }).its('body').then(response=>{
+   console.log(response)
+   expect(response.articles[0].title).to.not.equal('from api')
+  })
+
  })
 
 })
