@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cypress:run": "npx cypress run"
+    "cypress:run": "npx cypress run",
+    "cy:open_dev": "npx cypress open --env username=cytestdev@gmail.com,password=testdev",
+    "cy:open_qa": "npx cypress open --env username=cytestqa@gmail.com,password=testqa"
   },
   "author": "",
   "license": "ISC",
