@@ -67,9 +67,9 @@ describe('test backend', () => {
 // test to like an article in the global feed 
  it('testing like article display', ()=>{
 
-  cy.intercept('GET', Cypress.env("url")+'/api/articles/feed*', {"articles":[],"articlesCount":0} )
+  cy.intercept('GET', `${Cypress.env('apiURL')}/api/articles/feed*`, {"articles":[],"articlesCount":0} )
 
-  cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles*', {fixture: 'articles.json'})
+  cy.intercept('GET', `${Cypress.env('apiURL')}/api/articles*`, {fixture: 'articles.json'})
 
 //   // one way of testing button
   // cy.get('app-article-preview').then(article=>{
@@ -107,7 +107,7 @@ cy.fixture('articles.json').then(file=>{
   
   file.articles[1].favoritesCount = 6;
 
-  cy.intercept('POST', 'https://conduit-api.bondaracademy.com/api/articles/'+articleLink+ '/favorite', file).as('art')
+  cy.intercept('POST', `${Cypress.env('apiURL')}/api/articles/`+articleLink+ '/favorite', file).as('art')
  
   })
   cy.get('app-article-preview button').eq(1).click().should('contain', '6')
@@ -123,7 +123,7 @@ cy.fixture('articles.json').then(file=>{
 
   cy.get('@token').then(token=>{   
   cy.request({
-    url:'https://conduit-api.bondaracademy.com/api/articles/',
+    url:`${Cypress.env('apiURL')}/api/articles/`,
     headers:{
       'Authorization': 'Token ' + token
     },
@@ -139,7 +139,7 @@ cy.fixture('articles.json').then(file=>{
 
 
   cy.request({
-    url:'https://conduit-api.bondaracademy.com/api/articles/',
+    url: `${Cypress.env('apiURL')}/api/articles/`,
     headers:{
       'Authorization': 'Token ' + token
     },
