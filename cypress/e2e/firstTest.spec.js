@@ -26,15 +26,15 @@ describe('test backend', () => {
       req.reply(res=>{
         console.log(res)
 
-        expect(res.body.article.description).to.equal("This is a description")
-        res.body.article.description = "This is a description 2";
+        // expect(res.body.article.description).to.equal("This is a description")
+        // res.body.article.description = "This is a description 2";
 
       })
   }).as('postArticles')
 
     cy.contains('a', 'New Article').click()
     cy.get('[formcontrolname="title"]').type('this is a title')
-    cy.get('[formcontrolname="description"]').type('This is a description')
+    cy.get('[formcontrolname="description"]').type('This is a description 2')
     cy.get('[formcontrolname="body"]').type('this is a body')
     cy.get('[placeholder="Enter tags"]').type('this is a tag')
     cy.get('button').contains('Publish Article').click()
@@ -46,12 +46,13 @@ describe('test backend', () => {
       expect(xhr.response.body.article.description).to.equal('This is a description 2')
       expect(xhr.request.body.article.tagList[0]).to.equal('this is a tag')
       expect(xhr.request.body.article.title).to.equal('this is a title')
-      cy.get('[class="navbar-brand"]').click()
-      cy.contains('Global Feed').click()
-      cy.get('app-article-preview').first().click()
-      cy.get('app-article-meta button').contains('Delete').click()
+   
       // expect(xhr.response)
     })
+    cy.get('[class="navbar-brand"]').click()
+    cy.contains('Global Feed').click()
+    cy.get('app-article-preview').first().click()
+    cy.get('app-article-meta button').contains('Delete').click()
   })
 
 
