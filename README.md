@@ -1,163 +1,184 @@
+# 🚀 Cypress E2E API Tests
 
-# Cypress Backend Testing: Conduit API
+Welcome to the **Cypress E2E API Tests** repository! This project contains a collection of tests designed to ensure smooth interactions with the 
+ [Conduit Academy](https://conduit.bondaracademy.com/) website and backend API. Using Cypress, we verify functionalities such as logging in, creating articles, checking response statuses, and interacting with the global feed. Let’s dive in!
 
-Welcome to this **Cypress Backend Testing** project! 🚀  
-This project is a hands-on example of how to use **Cypress** to automate the testing of backend functionality in a web application. In particular, we’re going to work with the **Conduit API**, a simple API for testing out CRUD operations (Create, Read, Update, Delete) and other real-world backend scenarios.
+---
+# 📖 Table of Contents
 
-In this project, we focus on verifying API requests, mocking responses, simulating user actions, and validating UI updates after API interactions. It's a great way to practice integrating backend and frontend testing.
+- 🔧 [**Test Setup**](#-test-setup)
+- 🧪 [**Tests**](#-tests)
+  - ✔️ [**Verify Correct Request and Response**](#-verify-correct-request-and-response)
+  - 🏷️ [**Verify Popular Tags are Displayed**](#-verify-popular-tags-are-displayed)
+  - ❤️ [**Test Like Article Display**](#-test-like-article-display)
+  - 🗑️ [**Delete a New Article in Global Feed**](#-delete-a-new-article-in-global-feed)
+- 📁 [**Test Data**](#-test-data)
+- ⚙️ [**Prerequisites**](#-prerequisites)
+- 🔑 [**Custom Cypress Command for Login**](#-custom-cypress-command-for-login)
+
+---
+
+### How it Works:
+- **🔧 Test Setup** - This section covers the environment setup and configurations before running the tests.
+- **🧪 Tests** - The tests section lists the key tests to ensure proper functionality and data validation.
+  - **✔️ Verify Correct Request and Response**: Ensures the request and response match expectations.
+  - **🏷️ Verify Popular Tags**: Ensures that popular tags are correctly displayed on the page.
+  - **❤️ Test Like Article Display**: Verifies that the like button functionality works as expected.
+  - **🗑️ Delete Article**: Demonstrates the creation and deletion of an article using the API.
+- **📁 Test Data** - Contains information about required test data files.
+- **⚙️ Prerequisites** - Explains what you need to set up before running the tests.
+- **🔑 Custom Cypress Command for Login** - Describes how to create and use a custom login command.
+---
+
+## 🔧 Test Setup
+
+Before running the tests, the following setup is executed:
+
+- **Login**: A custom headless login function automatically handles logging into the application.
+- **Intercept API Calls**: Intercepts the API call to the tags endpoint and replaces the response with data from a fixture (`tags.json`).
+- **Intercept POST Articles**: Intercepts the POST request for creating articles and verifies both the request and response to ensure the correct data flow with data from a fixture ('articles.json').
 
 
-## 🧪 Test Scenarios
+---
 
-### Here's what we're testing in this project:
+## 🧪 Tests
 
-#### 1. **Verify Correct Request and Response**
+### ✔️ Verify Correct Request and Response when POSTING a new article Using the Intercept Method
 
-In this test, we make sure that when we post a new article:
+This test ensures that the article creation flow works as expected:
 
-- The **POST /articles** request is intercepted.
-- We validate the request body and ensure the server’s response is correct.
-- The article’s **title**, **description**, **body**, and **tags** are thoroughly checked.
+- **Intercepts** the POST request when creating an article.
+- **Submits** a new article with a title, description, body, and tags.
+- **Verifies** that the request and response contain the correct data, including the status code and article details.
 
-#### 2. **Check the Article Like Counts**
 
-This test verifies that when we view articles, the like counts are displayed correctly:
+https://github.com/user-attachments/assets/15ff7697-1aac-4cbb-ba7b-62862c751020
 
-- We mock the `GET /articles` response using a fixture (`articles.json`).
-- We ensure that the like counts for each article match what is returned from the API.
+---
 
-#### 3. **Test the Like Button Functionality**
+### 🏷️ Verify Popular Tags are Displayed 
 
-In this test, we simulate a user liking an article:
+This test ensures that the popular tags from the `tags.json` fixture are correctly displayed on the page.
 
-- We intercept the `POST /articles/:slug/favorite` request and ensure the like count increases by 1 after clicking the like button.
-- After interacting with the UI, we validate that the UI reflects the updated like count.
+- What’s tested? Popular tags like **Cypress**, **Automation**, and **Testing** should be visible on the page.
 
-#### 4. **Test Like on the Second Article**
 
-This test specifically targets the second article on the feed to ensure the like functionality works for different articles:
+https://github.com/user-attachments/assets/e112292f-50dc-4e25-bbb0-cb9648028e5f
 
-- Similar to the previous test, but we focus on the second article.
+
+---
+
+### ❤️ Test Like Article Display
+
+This test checks the functionality of the "like" button on articles in the global feed using the intercept, and fixture method to update like count:
+
+- **Verifies** that the like count is displayed correctly.
+- **Ensures** that clicking the like button updates the like count.
   
-#### 5. **Intercepting POST Requests for Articles**
+> **Additional Notes**: The fixture is updated with a new like count to simulate interaction.
 
-Here we intercept a **POST /articles** request to test how we can modify the request body before it’s sent. We simulate various article-related actions while checking for proper data handling.
+
+
+
+https://github.com/user-attachments/assets/94153d36-2fe6-4dde-a0eb-a329a25174ad
+
 
 ---
 
-## 📜 Cypress Test Code Breakdown
+### 🗑️ Delete a New Article in Global Feed
 
-### 1. **Login (`beforeEach` hook)**
+This test sequence demonstrates how to:
 
-To start off every test, we log into the application. We use **Cypress custom commands** to simulate the login action, which is customized for your app.
+- Create an article via an API request.
+- Verify its creation.
+- Delete the article and confirm it is no longer visible in the global feed.
 
-We also use `cy.intercept()` to mock the `GET /tags` API response with data from the `tags.json` fixture, which ensures we’re working with predefined data for consistency across tests.
 
-### 2. **Intercepting API Requests**
+https://github.com/user-attachments/assets/5498ad51-9ae4-4303-badd-9240f7e86656
 
-The magic of Cypress lies in its ability to intercept and modify API requests. In our tests, we use `cy.intercept()` to:
-
-- Modify the request body before it’s sent to the server.
-- Modify the response body to match expected test scenarios.
-- Check that the frontend UI updates according to the response.
-
-For example, in the **POST /articles** test, we intercept the request to change the article description before the request gets sent and validate the server’s response.
-
-### 3. **Fixture Files**
-
-In the `cypress/fixtures/` folder, we store mock data such as `tags.json` and `articles.json`:
-
-- These mock files simulate realistic responses from the API, making it easier to run tests without relying on a live server.
-- They help us simulate different API states, like empty article feeds or articles with varying like counts.
-
-### 4. **Assertions**
-
-Assertions play a critical role in verifying that the request and response are correct:
-
-- We use Cypress’ built-in assertion library to validate the API responses.
-- For example: `expect(res.body.article.description).to.equal("This is a description 2")`.
-
----
-## 🛠 Project Setup
 
 ---
 
+## 📁 Test Data
 
-### Prerequisites
-
-Before you get started, make sure you have the following installed:
-
-- **Node.js** (preferably v14 or above)
-- **npm** (you’ll use this to install dependencies)
-- **Cypress** (of course, it’s our main tool here!)
-
-### Installation
-
-1. Clone this repo to your local machine:
-   ```bash
-   git clone https://github.com/your-repository-name/cypress-backend-testing.git
-   ```
-
-2. Navigate into the project folder:
-   ```bash
-   cd cypress-backend-testing
-   ```
-
-3. Install the necessary dependencies:
-   ```bash
-   npm install
-   ```
-
-4. If Cypress isn’t installed, you can manually install it:
-   ```bash
-   npm install cypress --save-dev
-   ```
-
-5. Finally, launch Cypress with the following command:
-   ```bash
-   npx cypress open
-   ```
-
-
-## 🏃‍♀️ Running the Tests
-
-To run the tests locally:
-
-1. Make sure your backend server (API) is running locally at `http://localhost:3000` or wherever your API is hosted.
-2. Start Cypress in interactive mode by running:
-   ```bash
-   npx cypress open
-   ```
-
-3. You can also run the tests headlessly (without the UI) with:
-   ```bash
-   npx cypress run
-   ```
+- **`tags.json`**: A fixture containing a list of popular tags for testing tag display functionality.
+- **`articles.json`**: A fixture containing a list of articles with like counts and other relevant details for testing article interactions.
+<img width="1065" alt="Screenshot 2025-01-20 at 12 59 37 PM" src="https://github.com/user-attachments/assets/82646e7d-3bb7-44f2-a687-fd7bcf4afb11" />
 
 ---
 
-## 🛠 Troubleshooting
+## ⚙️ Prerequisites
 
-If you run into issues, here are a couple of common scenarios:
+Before running these tests, ensure you have the following:
 
-- **Missing `.next` build directory**:  
-   If you’re using a Next.js app, be sure to run `next build` before starting your app in production mode.
+- **Cypress**: Ensure Cypress is installed and set up in your project.
+- **API URL & Token**: Provide a valid API URL and authentication token via environment variables.
+  
+  Example (`cypress.json`):
+  ```json
+  {
+    "env": {
+      "apiURL": "https://your-api-url.com",
+      "token": "your-auth-token"
+    }
+  }
+  ```
 
-- **API Server not Accessible**:  
-   Ensure that your API is running locally on the correct port (usually `3000`). If you're running a mock server, check that it's correctly set up to handle the requests.
+> **Tip**: Don't forget to configure the authentication token for the login process!
 
 ---
 
-## 🔒 License
+## 🔑 Custom Cypress Command for Login
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for more details.
+### 📖 Overview
 
----
+The **`loginToApplication`** command automates the process of logging into the app. It sends a POST request with user credentials, stores the returned JWT token, and saves it to `localStorage` for persistent login across tests.
+<img width="958" alt="Screenshot 2025-01-20 at 1 00 31 PM" src="https://github.com/user-attachments/assets/a1a6c67c-d140-4797-ac43-9af49d6bf085" />
 
-Feel free to fork this repo and customize it to your own backend testing needs. Happy testing! 🎉
+### 🚀 How It Works
 
----
+- **User Credentials**: These are fetched securely from Cypress environment variables (e.g., `Cypress.env("username")` and `Cypress.env("password")`).
+- **POST Request**: A POST request is sent to `/api/users/login` to authenticate the user.
+- **Token Storage**: Upon a successful login, we store the JWT token as an alias using `cy.wrap(token).as('token')` for easy access in the other tests.
+- **LocalStorage**: The JWT token is stored in `localStorage` to keep the user logged in during the test execution.
 
+### 🎯 How to Use
+
+After adding this custom command, you can easily call `cy.loginToApplication()` in your tests to handle login automatically before each test.
+
+Example: Add it to your `beforeEach` hook to ensure login before each test:
+
+```javascript
+beforeEach('Login to Application', () => {
+  cy.loginToApplication();
+});
 ```
+
+This ensures every test starts with the user logged in, so you don’t have to write repetitive login code in every test case.
+
+### ⭐ Benefits
+
+- **Cleaner Code**: Abstracting the login process into a custom command makes tests cleaner and more maintainable.
+- **Faster Execution**: Automating login saves time, speeding up your test execution.
+- **Easy Maintenance**: If the login process changes, just update the command, and all tests will be updated automatically.
+
+---
+
+## ✨ License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+## Contributors
+
+A big thank you to all contributors! Feel free to open issues or submit pull requests. :octocat:
+
+---
+
+### Fun Section: Animated Badge Demo! ✨
+
+
+![Cypress](https://img.shields.io/badge/Cypress-Test%20Automation-4A6F78.svg)
 
 ---
