@@ -10,7 +10,10 @@
     "cy:open_qa": "npx cypress open --env username=cytestqa@gmail.com,password=testqa",
     "delete:reports": "rm -r cypress/results/* || true",
     "prereport": "npm run delete:reports",
-    "mochawesome:merge": "npx mochawesome-merge \"cypress/results/mochawesome/*.json\" > mochawesome.json && npx marge mochawesome.json"
+    "mochawesome:merge": "npx mochawesome-merge \"cypress/results/mochawesome/*.json\" > mochawesome.json && npx marge mochawesome.json",
+    "junit:merge": "npx junit-merge -d cypress/results/junit -o cypress/results/junit/results.xml",
+    "cypress:run": "npm run prereport && npx cypress run",
+    "cypress:e2e": "npm run cypress:run; npm run mochawesome:merge; npm run junit:merge"
   },
   "author": "",
   "license": "ISC",
