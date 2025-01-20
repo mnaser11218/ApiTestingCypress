@@ -28,8 +28,8 @@ Cypress.Commands.add('loginToApplication', ()=>{
    // user credentials
     const userCredentials = {"user": 
         {
-            "email": "mnaser11218@gmail.com",
-            "password": "asd123"
+            "email": Cypress.env("username"),
+            "password":Cypress.env("password")
             }
         }
         // making a post request to login with user credentials

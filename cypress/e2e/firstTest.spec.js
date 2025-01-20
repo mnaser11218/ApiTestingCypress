@@ -67,7 +67,7 @@ describe('test backend', () => {
 // test to like an article in the global feed 
  it('testing like article display', ()=>{
 
-  cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles/feed*', {"articles":[],"articlesCount":0} )
+  cy.intercept('GET', Cypress.env("url")+'/api/articles/feed*', {"articles":[],"articlesCount":0} )
 
   cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles*', {fixture: 'articles.json'})
 
