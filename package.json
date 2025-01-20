@@ -7,11 +7,22 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "cypress:run": "npx cypress run",
     "cy:open_dev": "npx cypress open --env username=cytestdev@gmail.com,password=testdev",
-    "cy:open_qa": "npx cypress open --env username=cytestqa@gmail.com,password=testqa"
+    "cy:open_qa": "npx cypress open --env username=cytestqa@gmail.com,password=testqa",
+    "delete:reports": "rm -r cypress/results/* || true",
+    "prereport": "npm run delete:reports",
+    "mochawesome:merge": "npx mochawesome-merge \"cypress/results/mochawesome/*.json\" > mochawesome.json && npx marge mochawesome.json"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^13.17.0"
+    "cypress": "^13.17.0",
+    "cypress-multi-reporters": "^2.0.4",
+    "mocha-junit-reporter": "^2.2.1",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.3.0",
+    "mochawesome-report-generator": "^6.2.0"
+  },
+  "dependencies": {
+    "junit-merge": "^2.0.0"
   }
 }

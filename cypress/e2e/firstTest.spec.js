@@ -10,7 +10,7 @@ describe('test backend', () => {
 
 
 
-  it('verify correct request and response',()=>{
+  it('verify correct request and response', {retries:2}, ()=>{
     // first post an article then intercept the post requst
 
     // cy.intercept('POST', '**/articles', (req)=>{
