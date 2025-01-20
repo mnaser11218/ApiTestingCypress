@@ -46,8 +46,10 @@ describe('test backend', () => {
       expect(xhr.response.body.article.description).to.equal('This is a description 2')
       expect(xhr.request.body.article.tagList[0]).to.equal('this is a tag')
       expect(xhr.request.body.article.title).to.equal('this is a title')
-
-
+      cy.get('[class="navbar-brand"]').click()
+      cy.contains('Global Feed').click()
+      cy.get('app-article-preview').first().click()
+      cy.get('app-article-meta button').contains('Delete').click()
       // expect(xhr.response)
     })
   })
@@ -113,22 +115,12 @@ cy.fixture('articles.json').then(file=>{
 
 
 // api testing loggin in and storing token, then making an article with an api request and deleting it
- it.only('delete a new article in a global feed', ()=>{
-  const userCredentials = {"user": 
-    {
-        "email": "mnaser11218@gmail.com",
-        "password": "asd123"
-        }
-    }
+ it('delete a new article in a global feed', ()=>{
+
     const articleBody = {article: {title: "from api", description: "kkk", body: "kk", tagList: ["kk"]}}
 
 
-  cy.request('POST', 'https://conduit-api.bondaracademy.com/api/users/login',userCredentials)
-  .its('body').then(body=>{
-    console.log(body.user.token)
-    const token = body.user.token;
- 
-
+  cy.get('@token').then(token=>{   
   cy.request({
     url:'https://conduit-api.bondaracademy.com/api/articles/',
     headers:{
