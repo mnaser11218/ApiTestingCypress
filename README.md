@@ -4,21 +4,9 @@ Welcome to the **Cypress E2E API Tests** repository! This project contains a col
  [Conduit Academy](https://conduit.bondaracademy.com/) website and backend API. Using Cypress, we verify functionalities such as logging in, creating articles, checking response statuses, and interacting with the global feed. Let’s dive in!
 
 ---
-# 📖 Table of Contents
 
-- 🔧 [**Test Setup**](#-test-setup)
-- 🧪 [**Tests**](#-tests)
-  - ✔️ [**Verify Correct Request and Response**](#-verify-correct-request-and-response)
-  - 🏷️ [**Verify Popular Tags are Displayed**](#-verify-popular-tags-are-displayed)
-  - ❤️ [**Test Like Article Display**](#-test-like-article-display)
-  - 🗑️ [**Delete a New Article in Global Feed**](#-delete-a-new-article-in-global-feed)
-- 📁 [**Test Data**](#-test-data)
-- ⚙️ [**Prerequisites**](#-prerequisites)
-- 🔑 [**Custom Cypress Command for Login**](#-custom-cypress-command-for-login)
+# 📖 Table of Contents:
 
----
-
-### How it Works:
 - **🔧 Test Setup** - This section covers the environment setup and configurations before running the tests.
 - **🧪 Tests** - The tests section lists the key tests to ensure proper functionality and data validation.
   - **✔️ Verify Correct Request and Response**: Ensures the request and response match expectations.
